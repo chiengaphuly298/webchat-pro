@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Selection */
+::selection {
+  background: rgba(88, 101, 242, 0.3);
+  color: inherit;
+}
+
+/* Glassmorphism utility */
+@layer utilities {
+  .glass {
+    @apply bg-dark-tertiary/80 backdrop-blur-md border border-dark-border;
+  }
+
+  .glass-strong {
+    @apply bg-dark-secondary/90 backdrop-blur-lg border border-dark-border;
+  }
+}
+
+/* Custom focus ring */
+@layer components {
+  .focus-ring {
+    @apply outline-none ring-2 ring-accent-blue/50 ring-offset-2 ring-offset-dark-primary;
+  }
+}
+
+/* Message bubble variants */
+@layer components {
+  .message-sent {
+    @apply bg-gradient-to-br from-accent-blue to-accent-purple text-white shadow-lg shadow-accent-blue/40 hover:shadow-xl hover:shadow-accent-blue/60 transition-all duration-300;
+  }
+
+  .message-received {
+    @apply bg-dark-tertiary text-gray-100 shadow-lg shadow-accent-purple/30 hover:shadow-xl hover:shadow-accent-purple/50 transition-all duration-300;
+  }
+}
+
+/* Message glow animation */
+@keyframes messageSentGlow {
+  0%, 100% {
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4),
+                0 4px 6px -2px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.6),
+                0 4px 6px -2px rgba(59, 130, 246, 0.5);
+  }
+}
+
+@keyframes messageReceivedGlow {
+  0%, 100% {
+    box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.3),
+                0 4px 6px -2px rgba(168, 85, 247, 0.2);
+  }
+  50% {
+    box-shadow: 0 10px 30px -5px rgba(168, 85, 247, 0.5),
+                0 4px 6px -2px rgba(168, 85, 247, 0.4);
+  }
+}
+
+.message-sent-glow {
+  animation: messageSentGlow 3s ease-in-out infinite;
+}
+
+.message-received-glow {
+  animation: messageReceivedGlow 3s ease-in-out infinite;
+}
+
+/* Typing animation */
+@keyframes typing {
+  0%, 60%, 100% { opacity: 0.3; }
+  30% { opacity: 1; }
+}
+
+.typing-dot {
+  animation: typing 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Skeleton loading shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #1a1a25 25%,
+    #2a2a3a 50%,
+    #1a1a25 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Emoji picker positioning */
+.emoji-mart {
+  background: transparent !important;
+  border: 1px solid #252532 !important;
+}
+
+.emoji-mart-dark {
+  --per-month-background: #13131a;
+  --color-category-button-active: #5865f2;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  @apply fixed inset-0 bg-black/60 backdrop-blur-sm z-40;
+}
+
+/* Button base */
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed
+           active:scale-[0.98];
+  }
+
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-accent-blue to-accent-purple text-white
+           hover:shadow-lg hover:shadow-accent-blue/25;
+  }
+
+  .btn-secondary {
+    @apply btn bg-dark-tertiary border border-dark-border text-white
+           hover:bg-dark-hover;
+  }
+
+  .btn-ghost {
+    @apply btn text-gray-400 hover:text-white hover:bg-dark-hover;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-500/10 text-red-400 border border-red-500/20
+           hover:bg-red-500/20;
+  }
+}
+
+/* Input base */
+@layer components {
+  .input {
+    @apply w-full px-4 py-2.5 bg-dark-secondary border border-dark-border rounded-lg
+           text-white placeholder-gray-500
+           focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:border-transparent
+           transition-all duration-200;
+  }
+
+  .input-error {
+    @apply border-red-500 focus:ring-red-500/50;
+  }
+}
+
+/* Avatar sizes */
+@layer components {
+  .avatar-xs { @apply w-6 h-6 text-xs; }
+  .avatar-sm { @apply w-8 h-8 text-sm; }
+  .avatar-md { @apply w-10 h-10 text-base; }
+  .avatar-lg { @apply w-12 h-12 text-lg; }
+  .avatar-xl { @apply w-16 h-16 text-xl; }
+}
+
+/* Badge variants */
+@layer components {
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-online {
+    @apply badge bg-online/20 text-online;
+  }
+
+  .badge-offline {
+    @apply badge bg-offline/20 text-offline;
+  }
+}

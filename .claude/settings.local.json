@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"console.log\\(JSON.stringify\\(require\\(''./src/socket/handler''\\), null, 2\\)\\)\")",
+      "Bash(node -e \"const m = require\\(''./src/socket/handler''\\); console.log\\(Object.keys\\(m\\)\\)\")"
+    ]
+  }
+}
